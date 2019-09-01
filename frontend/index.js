@@ -3,6 +3,8 @@ var request = require('superagent');
 
 var app = express();
 
+var port = process.env.PORT || 8080;
+
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/public/views/');
 
@@ -12,4 +14,4 @@ app.get('/', function(req, res){
   res.render('index');
 });
 
-app.listen(3000);
+app.listen(port);
