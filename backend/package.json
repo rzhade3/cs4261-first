@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for webapp",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Rahul Zhade",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

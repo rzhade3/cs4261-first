@@ -1,0 +1,14 @@
+{
+  "name": "cs4261-first",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && npm start\" \"cd frontend && npm start\""
+  },
+  "author": "Rahul Zhade",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^4.1.2"
+  }
+}
