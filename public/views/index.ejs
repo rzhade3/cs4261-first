@@ -8,10 +8,17 @@
     <h1>View all Posts</h1>
   </div>
 
-  <h3> All Posts </h3>
+  <h3> Current News </h3>
+  <% for(var i=0; i < news.length; i++) { %>
+    <div class="row">
+      <h5><%= news[i].title %></h5>
+    </div>
+  <% } %>
+
+  <h3> User Posts </h3>
   <% for(var i=0; i < posts.length; i++) { %>
     <div class="row">
-      <h4><%= posts[i].title %></h4>
+      <h5><%= posts[i].title %></h5>
     </div>
   <% } %>
 </div>

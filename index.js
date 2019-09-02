@@ -1,3 +1,5 @@
+const async = require('async');
+const request = require('request');
 var express = require('express');
 var app = express();
 
@@ -9,7 +11,27 @@ app.set('views', __dirname + '/public/views/');
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  res.render('index', { posts: [{title: 'Devon fix this'}, {title: 'Devon Fix this'}, {title: 'Devon Fix This'}], user: null });
+  const content = {};
+  async.waterfall([
+    (cb) => {
+      request('https://newsapi.org/v2/everything?q=bitcoin&from=2019-08-02&sortBy=publishedAt&apiKey=89566d3d11704cb59d514303cf50a9e0', {json: true}, (err, res, body) => {
+        content.news = body.articles;
+        cb(null);
+      });
+    },
+    (cb) => {
+      // Should be pulled from Firebase
+      content.posts = [{title: 'Devon fix this'}, {title: 'Devon Fix this'}, {title: 'Devon Fix This'}];
+      cb(null);
+    },
+    (cb) => {
+      // Replace this with user pulled from Firebase
+      content.user = null;
+      cb(null);
+    }
+  ], () => {
+    res.render('index', content);
+  });
 });
 
 app.get('/login', (req, res) => {
