@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   const content = {};
   async.waterfall([
     (cb) => {
-      request('https://newsapi.org/v2/everything?q=bitcoin&from=2019-08-10&sortBy=publishedAt&apiKey=89566d3d11704cb59d514303cf50a9e0', {json: true}, (err, res, body) => {
+      request('https://newsapi.org/v2/top-headlines?country=us&sortBy=publishedAt&apiKey=89566d3d11704cb59d514303cf50a9e0', {json: true}, (err, res, body) => {
         content.news = body.articles;
         cb(null);
       });
