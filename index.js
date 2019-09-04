@@ -118,6 +118,11 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.get('/logout', (req, res) => {
+  firebase.auth().signOut();
+  res.redirect('/');
+})
+
 app.get('/profile', (req, res) => {
   return res.render('profile', {user: firebase.auth().currentUser});
 });
