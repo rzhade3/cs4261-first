@@ -7,10 +7,10 @@
   <div class="jumbotron text-center">
     <h1>Login</h1>
   </div>
-  <form action="/login" method="POST">
-    Username: <input type="text" name="username"></input>
+  <form method="post" action="/login">
+    Username: <input type="email" name="user[email]"></input>
     <br>
-    Password: <input type="password" name="password"></input>
+    Password: <input type="password" name="user[password]"></input>
     <br>
     <input type="submit"></input>
   </form>
@@ -18,12 +18,14 @@
   <div class="jumbotron text-center">
     <h1>Register</h1>
   </div>
-  <form action="/register" method="POST">
-    Username: <input type="text" name="username"></input>
+  <form action="/register" method="post">
+    Name: <input type="text" name="user[name]"></input>
     <br>
-    Password: <input type="password" name="password"></input>
+    Username: <input type="email" name="user[email]"></input>
     <br>
-    Confirm Password: <input type="password" name="password"></input>
+    Password: <input type="password" name="user[password]"></input>
+    <br>
+    Confirm Password: <input type="password" name="user[confirm_pwd]"></input>
     <br>
     <input type="submit"></input>
   </form>
