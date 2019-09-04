@@ -35,7 +35,7 @@ app.set('views', __dirname + '/public/views/');
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res, next) => {
   const content = {};
   async.waterfall([
     (cb) => {
@@ -51,13 +51,11 @@ app.get('/', (req, res) => {
       cb(null);
     },
     (cb) => {
-      // content.posts = [{title: 'Hello'}, {title: 'Devon Fix this'}, {title: 'Devon Fix This'}];
       content.posts = [];
       if (!content.user) {
         content.posts = [{title: 'No posts yet!'}]
       } else {
         var docRef = db_admin.collection('users').doc(content.user.uid);
-        // content.posts = docRef.get("posts");
 
         var getDoc = docRef.get().then( doc => {
           if (!doc.exists) {
@@ -65,19 +63,13 @@ app.get('/', (req, res) => {
           } else {
             console.log("Document data: ", doc.data());
             content.posts = doc.data().posts;
-            // return doc.data().posts;
-            // return true;
-            // console.log(content.posts);
+            return true;
           }
-          // content.posts = [];
-          return true;
-        }).catch(err => { 
+        }).catch(err => {
           console.log("Error getting document", err);
           return false;
         });
-        // console.log(docRef.posts);
       };
-      // content.posts = [];
       console.log(content.posts);
       cb(null);
     }
@@ -142,22 +134,24 @@ app.post('/post', (req, res) => {
     } else {
       console.log("Document data: ", doc.data());
       posts = doc.data().posts;
+      posts[posts.length] = (toAdd);
       name = doc.data().name;
       username = doc.data().username;
       uid = doc.data().uid;
       var data = {
         name: name,
-        posts: posts.push(toAdd),
+        posts: posts,
         uid: uid,
         username: username
       };
       var setDoc = db_admin.collection('users').doc(firebase.auth().currentUser.uid).set(data);
     }
-    return true;
+    return res.redirect('/');
   }).catch(err => { 
     console.log("Error getting document", err);
     return false;
-  });});
+  });
+});
 
 app.listen(port);
 console.log("Listening on port", port)
